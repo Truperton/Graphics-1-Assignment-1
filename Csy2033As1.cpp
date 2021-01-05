@@ -1,11 +1,58 @@
 // Csy2033As1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <Windows.h>
 #include <iostream>
+#include <fstream>
+#include <math.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
+#include "glut.h"
+#include "AssignmentOneGlutClass.h"
 
-int main()
+using namespace std;
+
+void display();
+
+RgbaColour backgroundColour;
+
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!\n";
+    std::cout << "CSY2033 Assignment 1 program starting.\n";
+	std::cout << CalculateRegularPolygonVertices(5, 1).front()[0];
+	// initialize glut
+	glutInit(&argc, argv);
+
+	backgroundColour.AssignColour(0.0f, 0.0f, 0.0f);
+
+	// initialize window position
+	glutInitWindowPosition(10, 10);
+
+	// window size
+	glutInitWindowSize(1200, 600);
+
+	// display mode
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+
+	// create a window
+	glutCreateWindow("CSY2033 Assignment 1");
+
+	glutDisplayFunc(display);
+
+	glutMainLoop();
+
+	std::cout << "Closing program.";
+
+	return 0;
+}
+
+void display() 
+{
+	glClearColor(backgroundColour.red, backgroundColour.green, backgroundColour.blue, backgroundColour.alpha);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glutSwapBuffers();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

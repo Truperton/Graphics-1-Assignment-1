@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssignmentOneGlutClass.cpp" />
     <ClCompile Include="Csy2033As1.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AssignmentOneGlutClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
