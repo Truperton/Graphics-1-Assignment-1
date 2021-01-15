@@ -5,29 +5,39 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
+//#include <gl\GL.h>
+//#include <gl\GLU.h>
 #include "glut.h"
 #include "AssignmentOneGlutClass.h"
 
 using namespace std;
 
+void initialise();
 void display();
+void reshape(int w, int h);
+void idle();
 
 RgbaColour backgroundColour;
+PolygonVertices polygonVertices;
+PolygonStruct mainPolygon;
+GLuint listAddress = 1;
 
 int main(int argc, char* argv[])
 {
+	// Local Variables
+
+	// Main main()
     std::cout << "CSY2033 Assignment 1 program starting.\n";
-	std::cout << CalculateRegularPolygonVertices(5, 1).front()[0];
+
 	// initialize glut
 	glutInit(&argc, argv);
 
 	backgroundColour.AssignColour(0.0f, 0.0f, 0.0f);
 
 	// initialize window position
+	
 	glutInitWindowPosition(10, 10);
-
+	
 	// window size
 	glutInitWindowSize(1200, 600);
 
@@ -38,6 +48,10 @@ int main(int argc, char* argv[])
 	glutCreateWindow("CSY2033 Assignment 1");
 
 	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
+	glutIdleFunc(idle);
+
+	initialise();
 
 	glutMainLoop();
 
@@ -46,13 +60,67 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
+void initialise()
+{
+	glEnable(GL_DEPTH);
+	SavePolygonVerticesToFile(CalculateRegularPolygonVertices(5, 1), "Pentagon");
+	polygonVertices = LoadPolygonVerticesFromFile("Pentagon");
+
+	glNewList(listAddress, GL_COMPILE);
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < polygonVertices.size(); i++)
+	{
+		glVertex3f(polygonVertices[i][0], polygonVertices[i][1], 0.0);
+		cout << "x: " << polygonVertices[i][0] << ", y: " << polygonVertices[i][1] << endl;
+	}
+	glEnd();
+	glEndList();
+}
+
 void display() 
 {
 	glClearColor(backgroundColour.red, backgroundColour.green, backgroundColour.blue, backgroundColour.alpha);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glPushMatrix();
+	glTranslatef(mainPolygon.translation.x, mainPolygon.translation.y, mainPolygon.translation.z);
+	glRotatef(mainPolygon.translation.rotation, 0.0, 0.0, 1.0);
+	glScalef(mainPolygon.translation.scale, mainPolygon.translation.scale, mainPolygon.translation.scale);
+	glCallList(listAddress);
+	glPopMatrix();
+
 	glutSwapBuffers();
+}
+
+void reshape(int w, int h)
+{
+	// Prevent a divide by zero, when window is too short
+	// (you cant make a window of zero width).
+	if (h == 0)
+		h = 1;
+
+	float ratio = 1.0 * w / h;
+
+	// Reset the coordinate system before modifying
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	// Set the viewport to be the entire window
+	glViewport(0, 0, w, h);
+
+	// Set the correct perspective.
+	gluPerspective(45, ratio, 1, 1000);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0.0, 0.0, 5.0,     // eye's position
+		0.0, 0.0, 1.0,     // center of interest
+		0.0f, 1.0f, 0.0f); // up direction
+}
+
+void idle()
+{
+	glutPostRedisplay();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

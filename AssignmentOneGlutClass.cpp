@@ -22,11 +22,11 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue,
 	alpha = inputAlpha;
 }
 
-vector<array<float, 2>> CalculateRegularPolygonVertices(int numberOfVertices, float distanceFromCentre)
+PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float distanceFromCentre)
 {
 	// Local variables
 
-	vector<array<float, 2>> outputVector;
+	PolygonVertices outputVector;
 	const float pi = 3.14f;
 	float angle = 2 * pi / numberOfVertices;
 
@@ -49,16 +49,98 @@ vector<array<float, 2>> CalculateRegularPolygonVertices(int numberOfVertices, fl
 	return outputVector;
 }
 
-void SavePolygonVerticesToFile(vector<array<float, 2>> inputVertices)
+void SavePolygonVerticesToFile(PolygonVertices inputVertices)
 {
-	// Local variables
+	//Local variables
 
+	ofstream outfile("Default.vertices");
 	// Main SavePolygonVerticesToFile()
+	cout << "Saving vertices to \"Default.vertices\"" << endl << "Writing to file:" << endl;
+	for (array<float, 2> var : inputVertices)
+	{
+		outfile << var[0] << " " << var[1] << endl;
+		cout << "x: " << var[0] << ", y:" << var[1] << endl;
+	}
+	cout << "Closing \"Default.vertices\"";
+	outfile.close();
 }
 
-void SavePolygonVerticesToFile(vector<array<float, 2>> inputVertices, string filePath)
+void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
+{
+	//Local variables
+
+	ofstream newFile(filePath + ".vertices");
+	// Main SavePolygonVerticesToFile()
+	cout << "Saving vertices to \"" << filePath << ".vertices\"" << endl << "Writing to file:" << endl;
+	for (array<float, 2> var : inputVertices)
+	{
+		newFile << var[0] << " " << var[1] << endl;
+		cout << "x: " << var[0] << ", y:" << var[1] << endl;
+	}
+	cout << "Closing \"" << filePath << ".vertices\"" << endl;
+	newFile.close();
+}
+
+PolygonVertices LoadPolygonVerticesFromFile()
 {
 	// Local variables
 
-	// Main SavePolygonVerticesToFile()
+	ifstream loadingFile("Default.vertices");
+	PolygonVertices outputVertices;
+	bool notEmpty = true;
+	int i = 0;
+	// Main LoadPolygonVerticesFromFile()
+	while (notEmpty)
+	{
+		float tempX, tempY;
+		loadingFile >> tempX;
+		loadingFile >> tempY;
+		if (tempX != -107374176. && tempY != -107374176.)
+		{
+			outputVertices.resize(outputVertices.size() + 1);
+			outputVertices[i][0] = tempX;
+			outputVertices[i][1] = tempY;
+			cout << outputVertices[i][0] << " " << outputVertices[i][1] << endl;
+			tempX = -107374176.;
+			tempY = -107374176.;
+		}
+		else
+		{
+			notEmpty = false;
+		}
+		i++;
+	}
+	return outputVertices;
+}
+
+PolygonVertices LoadPolygonVerticesFromFile(string filePath)
+{
+	// Local variables
+
+	ifstream loadingFile(filePath + ".vertices");
+	PolygonVertices outputVertices;
+	bool notEmpty = true;
+	int i = 0;
+	// Main LoadPolygonVerticesFromFile()
+	while (notEmpty)
+	{
+		float tempX, tempY;
+		loadingFile >> tempX;
+		loadingFile >> tempY;
+		if (tempX != -107374176. && tempY != -107374176.)
+		{
+			outputVertices.resize(outputVertices.size() + 1);
+			outputVertices[i][0] = tempX;
+			outputVertices[i][1] = tempY;
+			cout << outputVertices[i][0] << " " << outputVertices[i][1] << endl;
+			tempX = -107374176.;
+			tempY = -107374176.;
+		}
+		else
+		{
+			notEmpty = false;
+		}
+		i++;
+	}
+	return outputVertices;
 }

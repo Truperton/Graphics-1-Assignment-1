@@ -2,13 +2,19 @@
 
 #include <iostream>
 #include <fstream>
-#include <gl/GL.h>
-#include <gl/GLU.h>
 #include <math.h>
 #include <vector>
 #include <array>
+#include "glut.h"
 
 using namespace std;
+
+typedef vector<array<float, 2>> PolygonVertices;
+
+struct TranslationStruct
+{
+	float x = 0.0f, y = 0.0f, z = 0.0f, rotation = 0.0f, scale = 1.0f;
+};
 
 /// <summary>
 /// Structure for storing RGBA data that is represented as values ranging from
@@ -50,6 +56,12 @@ struct RgbaColour
 	void AssignColour(float inputRed, float inputGreen, float inputBlue, float inputAlpha);
 };
 
+struct PolygonStruct
+{
+	TranslationStruct translation;
+	RgbaColour colour;
+};
+
 class AssignmentOneGlutClass
 {
 	
@@ -61,11 +73,15 @@ class AssignmentOneGlutClass
 /// <param name="numberOfVertices">The desired number of vertices(corners/sides).</param>
 /// <param name="distanceFromCentre">The desired distance from the centre of the shape(affects size).</param>
 /// <returns>A list of vertices for a regular shape.</returns>
-vector<array<float, 2>> CalculateRegularPolygonVertices(int numberOfVertices, float distanceFromCentre);
+PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float distanceFromCentre);
 /// <summary>
 /// Saves inputted vertices to default file 'Default.vertices'.
 /// </summary>
 /// <param name="inputVertices">The vector of vertices that is to be saved to a file.</param>
-void SavePolygonVerticesToFile(vector<array<float, 2>> inputVertices);
+void SavePolygonVerticesToFile(PolygonVertices inputVertices);
 
-void SavePolygonVerticesToFile(vector<array<float, 2>> inputVertices, string filePath);
+void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath);
+
+PolygonVertices LoadPolygonVerticesFromFile();
+
+PolygonVertices LoadPolygonVerticesFromFile(string filePath);
