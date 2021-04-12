@@ -10,6 +10,12 @@
 #include "glut.h"
 #include "AssignmentOneGlutClass.h"
 
+#if _DEBUG
+#define LOG "[Debug] "
+#else
+#define LOG ""
+#endif // _DEBUG
+
 using namespace std;
 
 void initialise();
@@ -62,6 +68,10 @@ int main(int argc, char* argv[])
 
 void initialise()
 {
+#if _DEBUG
+	cout << LOG "[initialise()] Starting." << endl;
+#endif // _DEBUG
+
 	glEnable(GL_DEPTH);
 	SavePolygonVerticesToFile(CalculateRegularPolygonVertices(5, 1), "Pentagon");
 	polygonVertices = LoadPolygonVerticesFromFile("Pentagon");
@@ -75,10 +85,18 @@ void initialise()
 	}
 	glEnd();
 	glEndList();
+
+#if _DEBUG
+	cout << LOG "[initialise()] Finished." << endl;
+#endif // _DEBUG
 }
 
 void display() 
 {
+#if _DEBUG
+	cout << LOG "[display()] Starting." << endl;
+#endif // _DEBUG
+
 	glClearColor(backgroundColour.red, backgroundColour.green, backgroundColour.blue, backgroundColour.alpha);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -91,14 +109,29 @@ void display()
 	glPopMatrix();
 
 	glutSwapBuffers();
+
+#if _DEBUG
+	cout << LOG "[display()] Finished." << endl;
+#endif // _DEBUG
 }
 
+/// <summary>
+/// Adjusts the scaling dependant on the new size of the window.
+/// </summary>
+/// <param name="w">Width of the screen in pixels</param>
+/// <param name="h">Height of the screen in pixels</param>
 void reshape(int w, int h)
 {
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window of zero width).
+#if _DEBUG
+	cout << LOG "[reshape(int, int)] Starting." << endl;
+#endif // _DEBUG
+
+	/* Prevent a divide by zero, when window is too short
+	*  (you cant make a window of zero width).*/
 	if (h == 0)
+	{
 		h = 1;
+	}
 
 	float ratio = 1.0 * w / h;
 
@@ -113,14 +146,26 @@ void reshape(int w, int h)
 	gluPerspective(45, ratio, 1, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.0, 0.0, 5.0,     // eye's position
-		0.0, 0.0, 1.0,     // center of interest
-		0.0f, 1.0f, 0.0f); // up direction
+	gluLookAt(0.0f, 0.0f, 5.0f,  // eye's position
+			  0.0f, 0.0f, 1.0f,  // center of interest
+			  0.0f, 1.0f, 0.0f); // up direction
+
+#if _DEBUG
+	cout << LOG "[reshape(int, int)] Finished." << endl;
+#endif // _DEBUG
 }
 
 void idle()
 {
+#if _DEBUG
+	cout << LOG "[idle()] Starting." << endl;
+#endif // _DEBUG
+
 	glutPostRedisplay();
+
+#if _DEBUG
+	cout << LOG "[idle()] Finished." << endl;
+#endif // _DEBUG
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

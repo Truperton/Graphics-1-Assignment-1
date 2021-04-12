@@ -7,8 +7,17 @@
 #include <array>
 #include "glut.h"
 
+#if _DEBUG
+#define LOG "[Debug] "
+#else
+#define LOG ""
+#endif // _DEBUG
+
 using namespace std;
 
+/// <summary>
+/// A vector of arrays containing x and y coordinates of a vertice.
+/// </summary>
 typedef vector<array<float, 2>> PolygonVertices;
 
 struct TranslationStruct
@@ -52,7 +61,7 @@ struct RgbaColour
 	/// <param name="inputRed">The value for red ranging from 0 to 1.</param>
 	/// <param name="inputGreen">The value for green ranging from 0 to 1.</param>
 	/// <param name="inputBlue">The value for blue ranging from 0 to 1.</param>
-	/// <param name="inputAlpha">The value for blue ranging from 0 to 1, with 0 being completely transparent and 1 being solid.</param>
+	/// <param name="inputAlpha">The value for blue ranging from 0 to 1, with 0 being completely transparent and 1 being opaque.</param>
 	void AssignColour(float inputRed, float inputGreen, float inputBlue, float inputAlpha);
 };
 

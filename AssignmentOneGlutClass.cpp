@@ -5,10 +5,28 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue)
 	// Local variables
 
 	// Main "AssignColour()"
+#if _DEBUG
+	cout << LOG "[RgbaColour.AssignColour(float, float, float)] Starting." << endl
+		<< LOG "Colours before assigning." << endl
+		<< LOG "Red: " << red << endl
+		<< LOG "Green: " << green << endl
+		<< LOG "Blue: " << blue << endl
+		<< LOG "Alpha: " << alpha << endl;
+#endif // _DEBUG
+
 	red = inputRed;
 	green = inputGreen;
 	blue = inputBlue;
 	alpha = 1.0;
+
+#if _DEBUG
+	cout << LOG "[RgbaColour.AssignColour(float, float, float)] Finished." << endl
+		<< LOG "Colours after assigning." << endl
+		<< LOG "Red: " << red << endl
+		<< LOG "Green: " << green << endl
+		<< LOG "Blue: " << blue << endl
+		<< LOG "Alpha: " << alpha << endl;
+#endif // _DEBUG
 }
 
 void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue, float inputAlpha)
@@ -16,10 +34,28 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue,
 	// Local variables
 
 	// Main "AssignColour()"
+#if _DEBUG
+	cout << LOG "[RgbaColour.AssignColour(float, float, float, float)] Starting." << endl
+		<< LOG "Colours before assigning." << endl
+		<< LOG "Red: " << red << endl
+		<< LOG "Green: " << green << endl
+		<< LOG "Blue: " << blue << endl
+		<< LOG "Alpha: " << alpha << endl;
+#endif // _DEBUG
+
 	red = inputRed;
 	green = inputGreen;
 	blue = inputBlue;
 	alpha = inputAlpha;
+
+#if _DEBUG
+	cout << LOG "[RgbaColour.AssignColour(float, float, float, float)] Finished." << endl
+		<< LOG "Colours before assigning." << endl
+		<< LOG "Red: " << red << endl
+		<< LOG "Green: " << green << endl
+		<< LOG "Blue: " << blue << endl
+		<< LOG "Alpha: " << alpha << endl;
+#endif // _DEBUG
 }
 
 PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float distanceFromCentre)
@@ -31,7 +67,11 @@ PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float dist
 	float angle = 2 * pi / numberOfVertices;
 
 	// Main "CalculateRegularPolygonVertices()"
-	cout << "CalculateRegularPolygonVertices() method starting." << endl;
+#if _DEBUG
+	cout << LOG "[CalculateRegularPolygonVertices()] Starting." << endl;
+#endif // _DEBUG
+
+	
 	outputVector.resize(numberOfVertices);
 	cout << "Resizing outputVector from 0 to " << outputVector.size() << endl;
 	outputVector[0] = { 0, distanceFromCentre };
@@ -43,9 +83,13 @@ PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float dist
 	cout << "Here are all " << numberOfVertices << " calculated vertices clockwise:" << endl;
 	for (int i = 0; i < numberOfVertices; i++)
 	{
-		cout << i << ": x " << outputVector[i][0] << ", y " << outputVector[i][1] << endl;
+		cout << i << ") x: " << outputVector[i][0] << ", y: " << outputVector[i][1] << endl;
 	}
-	cout << "CalculatingRegularPolygonVertices() method finishing." << endl;
+
+#if _DEBUG
+	cout << LOG "[CalculateRegularPolygonVertices()] Finished." << endl;
+#endif // _DEBUG
+
 	return outputVector;
 }
 
@@ -55,6 +99,10 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices)
 
 	ofstream outfile("Default.vertices");
 	// Main SavePolygonVerticesToFile()
+#if _DEBUG
+	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices)] Starting." << endl;
+#endif // _DEBUG
+
 	cout << "Saving vertices to \"Default.vertices\"" << endl << "Writing to file:" << endl;
 	for (array<float, 2> var : inputVertices)
 	{
@@ -63,6 +111,10 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices)
 	}
 	cout << "Closing \"Default.vertices\"";
 	outfile.close();
+
+#if _DEBUG
+	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices)] Finished." << endl;
+#endif // _DEBUG
 }
 
 void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
@@ -70,7 +122,12 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
 	//Local variables
 
 	ofstream newFile(filePath + ".vertices");
+
 	// Main SavePolygonVerticesToFile()
+#if _DEBUG
+	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Starting." << endl;
+#endif // _DEBUG
+
 	cout << "Saving vertices to \"" << filePath << ".vertices\"" << endl << "Writing to file:" << endl;
 	for (array<float, 2> var : inputVertices)
 	{
@@ -79,6 +136,10 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
 	}
 	cout << "Closing \"" << filePath << ".vertices\"" << endl;
 	newFile.close();
+
+#if _DEBUG
+	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Finished." << endl;
+#endif // _DEBUG
 }
 
 PolygonVertices LoadPolygonVerticesFromFile()
@@ -90,6 +151,10 @@ PolygonVertices LoadPolygonVerticesFromFile()
 	bool notEmpty = true;
 	int i = 0;
 	// Main LoadPolygonVerticesFromFile()
+#if _DEBUG
+	cout << LOG "[LoadPolygonVerticesFromFile()] Starting." << endl;
+#endif // _DEBUG
+
 	while (notEmpty)
 	{
 		float tempX, tempY;
@@ -100,7 +165,7 @@ PolygonVertices LoadPolygonVerticesFromFile()
 			outputVertices.resize(outputVertices.size() + 1);
 			outputVertices[i][0] = tempX;
 			outputVertices[i][1] = tempY;
-			cout << outputVertices[i][0] << " " << outputVertices[i][1] << endl;
+			cout << i << ") x: " << outputVertices[i][0] << ", y: " << outputVertices[i][1] << endl;
 			tempX = -107374176.;
 			tempY = -107374176.;
 		}
@@ -110,6 +175,10 @@ PolygonVertices LoadPolygonVerticesFromFile()
 		}
 		i++;
 	}
+
+#if _DEBUG
+	cout << LOG "[LoadPolygonVerticesFromFile()] Finished." << endl;
+#endif // _DEBUG
 	return outputVertices;
 }
 
@@ -122,6 +191,10 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 	bool notEmpty = true;
 	int i = 0;
 	// Main LoadPolygonVerticesFromFile()
+#if _DEBUG
+	cout << LOG "[LoadPolygonVerticesFromFile(string)] Starting." << endl;
+#endif // _DEBUG
+
 	while (notEmpty)
 	{
 		float tempX, tempY;
@@ -132,7 +205,7 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 			outputVertices.resize(outputVertices.size() + 1);
 			outputVertices[i][0] = tempX;
 			outputVertices[i][1] = tempY;
-			cout << outputVertices[i][0] << " " << outputVertices[i][1] << endl;
+			cout << i << ") x: " << outputVertices[i][0] << ", y: " << outputVertices[i][1] << endl;
 			tempX = -107374176.;
 			tempY = -107374176.;
 		}
@@ -142,5 +215,9 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 		}
 		i++;
 	}
+
+#if _DEBUG
+	cout << LOG "[LoadPolygonVerticesFromFile(string)] Finished." << endl;
+#endif // _DEBUG
 	return outputVertices;
 }
