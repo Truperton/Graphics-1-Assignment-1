@@ -9,6 +9,7 @@
 //#include <gl\GLU.h>
 #include "glut.h"
 #include "AssignmentOneGlutClass.h"
+#include "Menus.h"
 
 #if _DEBUG
 #define LOG "[Debug] "
@@ -18,15 +19,19 @@
 
 using namespace std;
 
-void initialise();
+void initialise(int state);
 void display();
 void reshape(int w, int h);
 void idle();
+
+Menus menu;
 
 RgbaColour backgroundColour;
 PolygonVertices polygonVertices;
 PolygonStruct mainPolygon;
 GLuint listAddress = 1;
+
+string verticesPathName;
 
 int main(int argc, char* argv[])
 {
@@ -34,6 +39,8 @@ int main(int argc, char* argv[])
 
 	// Main main()
     std::cout << "CSY2033 Assignment 1 program starting.\n";
+
+	menu.currentState = menu.MainMenu();
 
 	// initialize glut
 	glutInit(&argc, argv);
@@ -57,7 +64,7 @@ int main(int argc, char* argv[])
 	glutReshapeFunc(reshape);
 	glutIdleFunc(idle);
 
-	initialise();
+	initialise(menu.currentState);
 
 	glutMainLoop();
 
@@ -66,15 +73,32 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void initialise()
+void initialise(int state)
 {
+	RegularPolygonStruct tempStruct;
+
 #if _DEBUG
-	cout << LOG "[initialise()] Starting." << endl;
+	cout << LOG "[initialise(int)] Starting." << endl;
 #endif // _DEBUG
 
 	glEnable(GL_DEPTH);
-	SavePolygonVerticesToFile(CalculateRegularPolygonVertices(5, 1), "Pentagon");
-	mainPolygon.vertices = LoadPolygonVerticesFromFile("Pentagon");
+
+	switch (state)
+	{
+	case menu.DefaultPolygon:
+		SavePolygonVerticesToFile(CalculateRegularPolygonVertices(5, 1));
+		mainPolygon.vertices = LoadPolygonVerticesFromFile();
+		break;
+	case menu.CustomRegularPolygon:
+		tempStruct = menu.CustomRegularPolygonMenu();
+
+		verticesPathName = tempStruct.filePath;
+		SavePolygonVerticesToFile(CalculateRegularPolygonVertices(tempStruct.numberOfVertices, tempStruct.distanceFromCentre), verticesPathName);
+		mainPolygon.vertices = LoadPolygonVerticesFromFile(verticesPathName);
+		break;
+	default:
+		break;
+	}
 
 	glNewList(listAddress, GL_COMPILE);
 	glBegin(GL_LINE_LOOP);
@@ -87,7 +111,7 @@ void initialise()
 	glEndList();
 
 #if _DEBUG
-	cout << LOG "[initialise()] Finished." << endl;
+	cout << LOG "[initialise(int)] Finished." << endl;
 #endif // _DEBUG
 }
 

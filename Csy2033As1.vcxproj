@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="AssignmentOneGlutClass.cpp" />
     <ClCompile Include="Csy2033As1.cpp" />
+    <ClCompile Include="Menus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssignmentOneGlutClass.h" />
+    <ClInclude Include="Menus.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

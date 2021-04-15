@@ -109,7 +109,7 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices)
 		outfile << var[0] << " " << var[1] << endl;
 		cout << "x: " << var[0] << ", y:" << var[1] << endl;
 	}
-	cout << "Closing \"Default.vertices\"";
+	cout << "Closing \"Default.vertices\"" << endl;
 	outfile.close();
 
 #if _DEBUG
@@ -128,7 +128,7 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
 	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Starting." << endl;
 #endif // _DEBUG
 
-	cout << "Saving vertices to \"" << filePath << ".vertices\"" << endl << "Writing to file:" << endl;
+	cout << "Loading vertices from \"" << filePath << ".vertices\"" << endl << "Writing to file:" << endl;
 	for (array<float, 2> var : inputVertices)
 	{
 		newFile << var[0] << " " << var[1] << endl;
@@ -154,6 +154,8 @@ PolygonVertices LoadPolygonVerticesFromFile()
 #if _DEBUG
 	cout << LOG "[LoadPolygonVerticesFromFile()] Starting." << endl;
 #endif // _DEBUG
+
+	cout << "Loading vertices from \"Default.vertices\"" << endl << "Loading from file:" << endl;
 
 	while (notEmpty)
 	{
@@ -194,6 +196,8 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 #if _DEBUG
 	cout << LOG "[LoadPolygonVerticesFromFile(string)] Starting." << endl;
 #endif // _DEBUG
+
+	cout << "Saving vertices to \"" << filePath << ".vertices\"" << endl << "Loading from file:" << endl;
 
 	while (notEmpty)
 	{
