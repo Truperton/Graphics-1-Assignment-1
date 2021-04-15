@@ -200,14 +200,14 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 		float tempX, tempY;
 		loadingFile >> tempX;
 		loadingFile >> tempY;
-		if (tempX != -107374176. && tempY != -107374176.)
+		if (tempX != -107374176.0f && tempY != -107374176.0f)
 		{
 			outputVertices.resize(outputVertices.size() + 1);
 			outputVertices[i][0] = tempX;
 			outputVertices[i][1] = tempY;
 			cout << i << ") x: " << outputVertices[i][0] << ", y: " << outputVertices[i][1] << endl;
-			tempX = -107374176.;
-			tempY = -107374176.;
+			tempX = -107374176.0f;
+			tempY = -107374176.0f;
 		}
 		else
 		{

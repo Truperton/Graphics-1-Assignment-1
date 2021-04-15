@@ -74,14 +74,14 @@ void initialise()
 
 	glEnable(GL_DEPTH);
 	SavePolygonVerticesToFile(CalculateRegularPolygonVertices(5, 1), "Pentagon");
-	polygonVertices = LoadPolygonVerticesFromFile("Pentagon");
+	mainPolygon.vertices = LoadPolygonVerticesFromFile("Pentagon");
 
 	glNewList(listAddress, GL_COMPILE);
 	glBegin(GL_LINE_LOOP);
-	for (int i = 0; i < polygonVertices.size(); i++)
+	for (int i = 0; i < mainPolygon.vertices.size(); i++)
 	{
-		glVertex3f(polygonVertices[i][0], polygonVertices[i][1], 0.0);
-		cout << "x: " << polygonVertices[i][0] << ", y: " << polygonVertices[i][1] << endl;
+		glVertex3f(mainPolygon.vertices[i][0], mainPolygon.vertices[i][1], 0.0);
+		cout << "x: " << mainPolygon.vertices[i][0] << ", y: " << mainPolygon.vertices[i][1] << endl;
 	}
 	glEnd();
 	glEndList();

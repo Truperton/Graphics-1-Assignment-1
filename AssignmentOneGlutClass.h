@@ -68,6 +68,7 @@ struct RgbaColour
 struct PolygonStruct
 {
 	TranslationStruct translation;
+	PolygonVertices vertices;
 	RgbaColour colour;
 };
 
