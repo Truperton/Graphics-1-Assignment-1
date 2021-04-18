@@ -84,14 +84,29 @@ class AssignmentOneGlutClass
 /// <param name="distanceFromCentre">The desired distance from the centre of the shape(affects size).</param>
 /// <returns>A list of vertices for a regular shape.</returns>
 PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float distanceFromCentre);
+
 /// <summary>
 /// Saves inputted vertices to default file 'Default.vertices'.
 /// </summary>
 /// <param name="inputVertices">The vector of vertices that is to be saved to a file.</param>
 void SavePolygonVerticesToFile(PolygonVertices inputVertices);
 
+/// <summary>
+/// Saves inputted vertices to a file named by the user with '.vertices' type.
+/// </summary>
+/// <param name="inputVertices">The input vertices.</param>
+/// <param name="filePath">The filepath for the new file being saved which includes the name.</param>
 void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath);
 
+/// <summary>
+/// Loads the default 'Default.vertices' file.
+/// </summary>
+/// <returns>The vertices to be used for the shape shown.</returns>
 PolygonVertices LoadPolygonVerticesFromFile();
 
+/// <summary>
+/// Loads the default 'Default.vertices' file.
+/// </summary>
+/// <param name="filePath">The filepath for the file being loaded which includes the name.</param>
+/// <returns>The vertices to be used for the shape shown.</returns>
 PolygonVertices LoadPolygonVerticesFromFile(string filePath);

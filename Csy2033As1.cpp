@@ -35,20 +35,10 @@ GLuint listAddress = 1;
 
 string verticesPathName;
 
-// Likely to be removed
-// global var, rotation angle
-float angle = 0.0;
-float vertices[5][2]; // 5 vertices, and x, y coordinates
-GLuint listname = 1;
-float dx = 0.0;
-float dy = 0.0;
-float dz = 0.0;
-float scale = 1.0;
-
 // mouse click
 int x_click, y_click;
 int button;
-// End of example variables
+
 
 int main(int argc, char* argv[])
 {
@@ -97,12 +87,21 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
+/// <summary>
+/// Initialises the GLUT program, which includes generating the
+/// shapes.
+/// </summary>
+/// <param name="state">The input state of the program.</param>
 void initialise(int state)
 {
+	// Local Variables
 	RegularPolygonStruct tempStruct;
 
+	// Main initialise()
+
 #if _DEBUG
-	cout << DEBUGLOG "[initialise(int)] Starting." << endl;
+#define LOCALLOG DEBUGLOG "[initialise(int)] "
+	cout << LOCALLOG "Starting." << endl;
 #endif // _DEBUG
 
 	glEnable(GL_DEPTH);
@@ -135,12 +134,19 @@ void initialise(int state)
 	glEndList();
 
 #if _DEBUG
-	cout << DEBUGLOG "[initialise(int)] Finished." << endl;
+	cout << LOCALLOG "Finished." << endl;
 #endif // _DEBUG
 }
 
+/// <summary>
+/// The method that handles displaying objects on the screen.
+/// </summary>
 void display() 
 {
+	// Local Variables
+
+	// Main display()
+
 #if _DEBUG
 #define LOCALLOG DEBUGLOG "[display()] "
 	cout << LOCALLOG "Starting." << endl;
@@ -171,8 +177,13 @@ void display()
 /// <param name="h">Height of the screen in pixels</param>
 void reshape(int w, int h)
 {
+	// Local Variables
+
+	// Main reshape()
+
 #if _DEBUG
-	cout << DEBUGLOG "[reshape(int, int)] Starting." << endl;
+#define LOCALLOG DEBUGLOG "[reshape(int, int)] "
+	cout << LOCALLOG "Starting." << endl;
 #endif // _DEBUG
 
 	/* Prevent a divide by zero, when window is too short
@@ -200,28 +211,52 @@ void reshape(int w, int h)
 			  0.0f, 1.0f, 0.0f); // up direction
 
 #if _DEBUG
-	cout << DEBUGLOG "[reshape(int, int)] Finished." << endl;
+	cout << LOCALLOG "Finished." << endl;
 #endif // _DEBUG
 }
 
+/// <summary>
+/// The idle method that happens when no other events do.
+/// </summary>
 void idle()
 {
+	// Local Variables
+
+	// Main idle()
+
 #if _DEBUG
-	cout << DEBUGLOG "[idle()] Starting." << endl;
+#define LOCALLOG DEBUGLOG "[idle()] "
+	cout << LOCALLOG "Starting." << endl;
 #endif // _DEBUG
 
 	glutPostRedisplay();
 
 #if _DEBUG
-	cout << DEBUGLOG "[idle()] Finished." << endl;
+	cout << LOCALLOG "Finished." << endl;
 #endif // _DEBUG
 }
 
+/// <summary>
+/// The method that's handled when any of the mouse's buttons are
+/// pressed. Picks up the x and y movement of the mouse as well.
+/// </summary>
+/// <param name="button">The keycode for the mouse button pressed.</param>
+/// <param name="state">The code for the state e.g. down or up.</param>
+/// <param name="x">The distance the mouse moved horizontally.</param>
+/// <param name="y">The distance the mouse moved vertically.</param>
 void mouse_click(int button, int state, int x, int y)
 {
+	// Local Variables
+
+	// Main mouse_click()
+
 #if _DEBUG
 #define LOCALLOG DEBUGLOG "[mouse_click(int, int, int, int)] "
-	cout << LOCALLOG "Starting." << endl;
+	cout << LOCALLOG "Starting." << endl
+		<< LOCALLOG "button = " << button << endl
+		<< LOCALLOG "state = " << state << endl
+		<< LOCALLOG "x = " << x << endl
+		<< LOCALLOG "y = " << y << endl;
 #endif // _DEBUG
 
 	if (state == GLUT_DOWN)
@@ -240,6 +275,11 @@ void mouse_click(int button, int state, int x, int y)
 #endif // _DEBUG
 }
 
+/// <summary>
+/// The method that occurs when the mouse moves.
+/// </summary>
+/// <param name="x">The horizontal distance the mouse moved.</param>
+/// <param name="y">The vertical distance the mouse moved.</param>
 void mouse_motion(int x, int y)
 {
 #if _DEBUG
