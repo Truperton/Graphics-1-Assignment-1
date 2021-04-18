@@ -12,9 +12,9 @@
 #include "Menus.h"
 
 #if _DEBUG
-#define LOG "[Debug] "
+#define DEBUGLOG "[Debug] "
 #else
-#define LOG ""
+#define DEBUGLOG ""
 #endif // _DEBUG
 
 using namespace std;
@@ -78,7 +78,7 @@ void initialise(int state)
 	RegularPolygonStruct tempStruct;
 
 #if _DEBUG
-	cout << LOG "[initialise(int)] Starting." << endl;
+	cout << DEBUGLOG "[initialise(int)] Starting." << endl;
 #endif // _DEBUG
 
 	glEnable(GL_DEPTH);
@@ -111,14 +111,15 @@ void initialise(int state)
 	glEndList();
 
 #if _DEBUG
-	cout << LOG "[initialise(int)] Finished." << endl;
+	cout << DEBUGLOG "[initialise(int)] Finished." << endl;
 #endif // _DEBUG
 }
 
 void display() 
 {
 #if _DEBUG
-	cout << LOG "[display()] Starting." << endl;
+#define LOCALLOG DEBUGLOG "[display()] "
+	cout << LOCALLOG "Starting." << endl;
 #endif // _DEBUG
 
 	glClearColor(backgroundColour.red, backgroundColour.green, backgroundColour.blue, backgroundColour.alpha);
@@ -135,7 +136,7 @@ void display()
 	glutSwapBuffers();
 
 #if _DEBUG
-	cout << LOG "[display()] Finished." << endl;
+	cout << LOCALLOG "Finished." << endl;
 #endif // _DEBUG
 }
 
@@ -147,7 +148,7 @@ void display()
 void reshape(int w, int h)
 {
 #if _DEBUG
-	cout << LOG "[reshape(int, int)] Starting." << endl;
+	cout << DEBUGLOG "[reshape(int, int)] Starting." << endl;
 #endif // _DEBUG
 
 	/* Prevent a divide by zero, when window is too short
@@ -175,20 +176,20 @@ void reshape(int w, int h)
 			  0.0f, 1.0f, 0.0f); // up direction
 
 #if _DEBUG
-	cout << LOG "[reshape(int, int)] Finished." << endl;
+	cout << DEBUGLOG "[reshape(int, int)] Finished." << endl;
 #endif // _DEBUG
 }
 
 void idle()
 {
 #if _DEBUG
-	cout << LOG "[idle()] Starting." << endl;
+	cout << DEBUGLOG "[idle()] Starting." << endl;
 #endif // _DEBUG
 
 	glutPostRedisplay();
 
 #if _DEBUG
-	cout << LOG "[idle()] Finished." << endl;
+	cout << DEBUGLOG "[idle()] Finished." << endl;
 #endif // _DEBUG
 }
 

@@ -6,12 +6,12 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue)
 
 	// Main "AssignColour()"
 #if _DEBUG
-	cout << LOG "[RgbaColour.AssignColour(float, float, float)] Starting." << endl
-		<< LOG "Colours before assigning." << endl
-		<< LOG "Red: " << red << endl
-		<< LOG "Green: " << green << endl
-		<< LOG "Blue: " << blue << endl
-		<< LOG "Alpha: " << alpha << endl;
+	cout << DEBUGLOG "[RgbaColour.AssignColour(float, float, float)] Starting." << endl
+		<< DEBUGLOG "Colours before assigning." << endl
+		<< DEBUGLOG "Red: " << red << endl
+		<< DEBUGLOG "Green: " << green << endl
+		<< DEBUGLOG "Blue: " << blue << endl
+		<< DEBUGLOG "Alpha: " << alpha << endl;
 #endif // _DEBUG
 
 	red = inputRed;
@@ -20,12 +20,12 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue)
 	alpha = 1.0;
 
 #if _DEBUG
-	cout << LOG "[RgbaColour.AssignColour(float, float, float)] Finished." << endl
-		<< LOG "Colours after assigning." << endl
-		<< LOG "Red: " << red << endl
-		<< LOG "Green: " << green << endl
-		<< LOG "Blue: " << blue << endl
-		<< LOG "Alpha: " << alpha << endl;
+	cout << DEBUGLOG "[RgbaColour.AssignColour(float, float, float)] Finished." << endl
+		<< DEBUGLOG "Colours after assigning." << endl
+		<< DEBUGLOG "Red: " << red << endl
+		<< DEBUGLOG "Green: " << green << endl
+		<< DEBUGLOG "Blue: " << blue << endl
+		<< DEBUGLOG "Alpha: " << alpha << endl;
 #endif // _DEBUG
 }
 
@@ -35,12 +35,12 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue,
 
 	// Main "AssignColour()"
 #if _DEBUG
-	cout << LOG "[RgbaColour.AssignColour(float, float, float, float)] Starting." << endl
-		<< LOG "Colours before assigning." << endl
-		<< LOG "Red: " << red << endl
-		<< LOG "Green: " << green << endl
-		<< LOG "Blue: " << blue << endl
-		<< LOG "Alpha: " << alpha << endl;
+	cout << DEBUGLOG "[RgbaColour.AssignColour(float, float, float, float)] Starting." << endl
+		<< DEBUGLOG "Colours before assigning." << endl
+		<< DEBUGLOG "Red: " << red << endl
+		<< DEBUGLOG "Green: " << green << endl
+		<< DEBUGLOG "Blue: " << blue << endl
+		<< DEBUGLOG "Alpha: " << alpha << endl;
 #endif // _DEBUG
 
 	red = inputRed;
@@ -49,12 +49,12 @@ void RgbaColour::AssignColour(float inputRed, float inputGreen, float inputBlue,
 	alpha = inputAlpha;
 
 #if _DEBUG
-	cout << LOG "[RgbaColour.AssignColour(float, float, float, float)] Finished." << endl
-		<< LOG "Colours before assigning." << endl
-		<< LOG "Red: " << red << endl
-		<< LOG "Green: " << green << endl
-		<< LOG "Blue: " << blue << endl
-		<< LOG "Alpha: " << alpha << endl;
+	cout << DEBUGLOG "[RgbaColour.AssignColour(float, float, float, float)] Finished." << endl
+		<< DEBUGLOG "Colours before assigning." << endl
+		<< DEBUGLOG "Red: " << red << endl
+		<< DEBUGLOG "Green: " << green << endl
+		<< DEBUGLOG "Blue: " << blue << endl
+		<< DEBUGLOG "Alpha: " << alpha << endl;
 #endif // _DEBUG
 }
 
@@ -68,7 +68,7 @@ PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float dist
 
 	// Main "CalculateRegularPolygonVertices()"
 #if _DEBUG
-	cout << LOG "[CalculateRegularPolygonVertices()] Starting." << endl;
+	cout << DEBUGLOG "[CalculateRegularPolygonVertices()] Starting." << endl;
 #endif // _DEBUG
 
 	
@@ -87,7 +87,7 @@ PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float dist
 	}
 
 #if _DEBUG
-	cout << LOG "[CalculateRegularPolygonVertices()] Finished." << endl;
+	cout << DEBUGLOG "[CalculateRegularPolygonVertices()] Finished." << endl;
 #endif // _DEBUG
 
 	return outputVector;
@@ -100,7 +100,7 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices)
 	ofstream outfile("Default.vertices");
 	// Main SavePolygonVerticesToFile()
 #if _DEBUG
-	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices)] Starting." << endl;
+	cout << DEBUGLOG "[SavePolygonVerticesToFile(PolygonVertices)] Starting." << endl;
 #endif // _DEBUG
 
 	cout << "Saving vertices to \"Default.vertices\"" << endl << "Writing to file:" << endl;
@@ -113,7 +113,7 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices)
 	outfile.close();
 
 #if _DEBUG
-	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices)] Finished." << endl;
+	cout << DEBUGLOG "[SavePolygonVerticesToFile(PolygonVertices)] Finished." << endl;
 #endif // _DEBUG
 }
 
@@ -125,7 +125,7 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
 
 	// Main SavePolygonVerticesToFile()
 #if _DEBUG
-	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Starting." << endl;
+	cout << DEBUGLOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Starting." << endl;
 #endif // _DEBUG
 
 	cout << "Loading vertices from \"" << filePath << ".vertices\"" << endl << "Writing to file:" << endl;
@@ -138,7 +138,7 @@ void SavePolygonVerticesToFile(PolygonVertices inputVertices, string filePath)
 	newFile.close();
 
 #if _DEBUG
-	cout << LOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Finished." << endl;
+	cout << DEBUGLOG "[SavePolygonVerticesToFile(PolygonVertices, string)] Finished." << endl;
 #endif // _DEBUG
 }
 
@@ -152,7 +152,7 @@ PolygonVertices LoadPolygonVerticesFromFile()
 	int i = 0;
 	// Main LoadPolygonVerticesFromFile()
 #if _DEBUG
-	cout << LOG "[LoadPolygonVerticesFromFile()] Starting." << endl;
+	cout << DEBUGLOG "[LoadPolygonVerticesFromFile()] Starting." << endl;
 #endif // _DEBUG
 
 	cout << "Loading vertices from \"Default.vertices\"" << endl << "Loading from file:" << endl;
@@ -179,7 +179,7 @@ PolygonVertices LoadPolygonVerticesFromFile()
 	}
 
 #if _DEBUG
-	cout << LOG "[LoadPolygonVerticesFromFile()] Finished." << endl;
+	cout << DEBUGLOG "[LoadPolygonVerticesFromFile()] Finished." << endl;
 #endif // _DEBUG
 	return outputVertices;
 }
@@ -194,7 +194,7 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 	int i = 0;
 	// Main LoadPolygonVerticesFromFile()
 #if _DEBUG
-	cout << LOG "[LoadPolygonVerticesFromFile(string)] Starting." << endl;
+	cout << DEBUGLOG "[LoadPolygonVerticesFromFile(string)] Starting." << endl;
 #endif // _DEBUG
 
 	cout << "Saving vertices to \"" << filePath << ".vertices\"" << endl << "Loading from file:" << endl;
@@ -221,7 +221,7 @@ PolygonVertices LoadPolygonVerticesFromFile(string filePath)
 	}
 
 #if _DEBUG
-	cout << LOG "[LoadPolygonVerticesFromFile(string)] Finished." << endl;
+	cout << DEBUGLOG "[LoadPolygonVerticesFromFile(string)] Finished." << endl;
 #endif // _DEBUG
 	return outputVertices;
 }

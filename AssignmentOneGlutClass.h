@@ -8,9 +8,9 @@
 #include "glut.h"
 
 #if _DEBUG
-#define LOG "[Debug] "
+#define DEBUGLOG "[Debug] "
 #else
-#define LOG ""
+#define DEBUGLOG ""
 #endif // _DEBUG
 
 using namespace std;
