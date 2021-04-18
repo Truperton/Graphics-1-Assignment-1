@@ -19,8 +19,11 @@ int Menus::MainMenu()
 RegularPolygonStruct Menus::CustomRegularPolygonMenu()
 {
     RegularPolygonStruct outputStruct;
+    cout << "Name for the shape: ";
     cin >> outputStruct.filePath;
+    cout << "Number of vertices: ";
     cin >> outputStruct.numberOfVertices;
+    cout << "Radius from centre: ";
     cin >> outputStruct.distanceFromCentre;
     return outputStruct;
 }

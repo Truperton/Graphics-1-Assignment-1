@@ -23,6 +23,8 @@ void initialise(int state);
 void display();
 void reshape(int w, int h);
 void idle();
+void mouse_click(int button, int state, int x, int y);
+void mouse_motion(int x, int y);
 
 Menus menu;
 
@@ -33,14 +35,34 @@ GLuint listAddress = 1;
 
 string verticesPathName;
 
+// Likely to be removed
+// global var, rotation angle
+float angle = 0.0;
+float vertices[5][2]; // 5 vertices, and x, y coordinates
+GLuint listname = 1;
+float dx = 0.0;
+float dy = 0.0;
+float dz = 0.0;
+float scale = 1.0;
+
+// mouse click
+int x_click, y_click;
+int button;
+// End of example variables
+
 int main(int argc, char* argv[])
 {
 	// Local Variables
 
 	// Main main()
-    std::cout << "CSY2033 Assignment 1 program starting.\n";
+	std::cout << "CSY2033 Assignment 1 program starting.\n";
 
 	menu.currentState = menu.MainMenu();
+
+	if (menu.currentState == -1)
+	{
+		return 74;
+	}
 
 	// initialize glut
 	glutInit(&argc, argv);
@@ -63,6 +85,8 @@ int main(int argc, char* argv[])
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(idle);
+	glutMouseFunc(mouse_click);
+	glutMotionFunc(mouse_motion);
 
 	initialise(menu.currentState);
 
@@ -190,6 +214,74 @@ void idle()
 
 #if _DEBUG
 	cout << DEBUGLOG "[idle()] Finished." << endl;
+#endif // _DEBUG
+}
+
+void mouse_click(int button, int state, int x, int y)
+{
+#if _DEBUG
+#define LOCALLOG DEBUGLOG "[mouse_click(int, int, int, int)] "
+	cout << LOCALLOG "Starting." << endl;
+#endif // _DEBUG
+
+	if (state == GLUT_DOWN)
+	{
+		x_click = x;
+		y_click = y;
+		::button = button; // button = GLUT_LEFT_BUTTON, GLUT_RIGHT_BUTTON, GLUT_MIDDLE_BUTTON
+	}
+	else
+	{
+		::button = -1;
+	}
+
+#if _DEBUG
+	cout << LOCALLOG "Finished." << endl;
+#endif // _DEBUG
+}
+
+void mouse_motion(int x, int y)
+{
+#if _DEBUG
+#define LOCALLOG DEBUGLOG "[mouse_motion(int, int)] "
+	cout << LOCALLOG "Starting." << endl
+		<< LOCALLOG "int x = " << x << endl
+		<< LOCALLOG "int y = " << y << endl;
+#endif // _DEBUG
+
+	double mvmatrix[16];
+	double projmatrix[16];
+	int    viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glGetDoublev(GL_MODELVIEW_MATRIX, mvmatrix);
+	glGetDoublev(GL_PROJECTION_MATRIX, projmatrix);
+
+	double cur_y = double(viewport[3] - y);
+	double obj_cur_y, obj_cur_x, obj_cur_z;
+	gluUnProject((double)x, cur_y, 0.5, mvmatrix, projmatrix, viewport, &obj_cur_x, &obj_cur_y, &obj_cur_z);
+
+	double pre_y = double(viewport[3] - y_click);
+	double obj_pre_y, obj_pre_x, obj_pre_z;
+	gluUnProject((double)x_click, pre_y, 0.5, mvmatrix, projmatrix, viewport, &obj_pre_x, &obj_pre_y, &obj_pre_z);
+
+	switch (button)
+	{
+	case GLUT_LEFT_BUTTON:
+		mainPolygon.translation.x += (obj_cur_x - obj_pre_x) * 2.5;
+		mainPolygon.translation.y -= (obj_pre_y - obj_cur_y) * 2.5;
+		break;
+	case GLUT_RIGHT_BUTTON:
+		mainPolygon.translation.rotation -= (x_click - x);
+		break;
+	case GLUT_MIDDLE_BUTTON:
+		mainPolygon.translation.scale -= (x_click - x) * 0.02;
+		break;
+	}
+	x_click = x;
+	y_click = y;
+
+#if _DEBUG
+	cout << LOCALLOG "Finished." << endl;
 #endif // _DEBUG
 }
 
