@@ -77,7 +77,7 @@ PolygonVertices CalculateRegularPolygonVertices(int numberOfVertices, float dist
 	outputVector[0] = { 0, distanceFromCentre };
 	for (int i = numberOfVertices - 1; i > 0 ; i--)
 	{
-		outputVector[i] = {outputVector[0][0] * cos(angle * i) - outputVector[0][1] * sin(angle * i), outputVector[0][1] * cos(angle * i) + outputVector[0][0] * sin(angle * i) };
+		outputVector[i] = { 0 - outputVector[0][1] * sin(angle * i), outputVector[0][1] * cos(angle * i) };
 	}
 	
 	cout << "Here are all " << numberOfVertices << " calculated vertices clockwise:" << endl;
